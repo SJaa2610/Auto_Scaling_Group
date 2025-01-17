@@ -1,0 +1,36 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Card</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        .card { border: 1px solid #ccc; padding: 20px; display: inline-block; }
+    </style>
+</head>
+<body>
+    <h1>My Business Card</h1>
+    <div class="card" id="card">
+        <p>Loading...</p>
+    </div>
+    <script>
+        fetch('/api/card')
+            .then(response => response.json())
+            .then(data => {
+                const card = document.getElementById('card');
+                card.innerHTML = `
+                    <h2>${data.name}</h2>
+                    <p><strong>Profession:</strong> ${data.profession}</p>
+                    <p><strong>Email:</strong> ${data.email}</p>
+                    <p><strong>Phone:</strong> ${data.phone}</p>
+                    <p><strong>Website:</strong> <a href="${data.website}" target="_blank">${data.website}</a></p>
+                `;
+            })
+            .catch(err => {
+                document.getElementById('card').innerHTML = '<p>Error loading card.</p>';
+            });
+    </script>
+</body>
+</html>
