@@ -13,10 +13,11 @@ jobs:
       uses: actions/checkout@v2
     
     - name: Build Docker image
-      run: docker build -t mi-imagen-qa .
+      run: docker build -t project-asg .
 
     - name: Push Docker image to DockerHub
-      run: docker push mi-imagen-qa:qa-latest
+      run: docker push project-asg:qa-latest
       env:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
