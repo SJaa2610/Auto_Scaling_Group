@@ -1,0 +1,22 @@
+name: QA Pipeline
+on:
+  push:
+    branches:
+      - QA
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+    
+    - name: Build Docker image
+      run: docker build -t mi-imagen-qa .
+
+    - name: Push Docker image to DockerHub
+      run: docker push mi-imagen-qa:qa-latest
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
